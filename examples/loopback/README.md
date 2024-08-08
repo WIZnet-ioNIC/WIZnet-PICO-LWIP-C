@@ -13,13 +13,13 @@ The following serial terminal programs are required for Loopback example test, d
 
 ## Step 2: Prepare hardware
 
-If you are using W5100S-EVB-Pico or W5500-EVB-Pico, you can skip '1. Combine...'
+If you are using W5100S-EVB-Pico, W5500-EVB-Pico or W55RP20-EVB-Pico you can skip '1. Combine...'
 
 1. Combine WIZnet Ethernet HAT with Raspberry Pi Pico.
 
-2. Connect ethernet cable to WIZnet Ethernet HAT, W5100S-EVB-Pico or W5500-EVB-Pico ethernet port.
+2. Connect ethernet cable to WIZnet Ethernet HAT, W5100S-EVB-Pico, W5500-EVB-Pico or W55RP20-EVB-Pico ethernet port.
 
-3. Connect Raspberry Pi Pico, W5100S-EVB-Pico or W5500-EVB-Pico to desktop or laptop using 5 pin micro USB cable.
+3. Connect Raspberry Pi Pico, W5100S-EVB-Pico, W5500-EVB-Pico or W55RP20-EVB-Pico to desktop or laptop using 5 pin micro USB cable.
 
 
 
@@ -27,7 +27,7 @@ If you are using W5100S-EVB-Pico or W5500-EVB-Pico, you can skip '1. Combine...'
 
 To test the Loopback example, minor settings shall be done in code.
 
-1. Setup SPI port and pin in 'w5x00_spi.h' in 'RP2040-HAT-LWIP-C/port/ioLibrary_Driver/' directory.
+1. Setup SPI port and pin in 'w5x00_spi.h' in 'WIZnet-PICO-LWIP-C/port/ioLibrary_Driver/' directory.
 
 Setup the SPI interface you use.
 
@@ -49,7 +49,7 @@ If you want to test with the Loopback example using SPI DMA, uncomment USE_SPI_D
 //#define USE_SPI_DMA // if you want to use SPI DMA, uncomment.
 ```
 
-2. Setup network configuration such as IP in 'w5x00_loopback.c' which is the Loopback example in 'RP2040-HAT-LWIP-C/examples/loopback/' directory.
+2. Setup network configuration such as IP in 'w5x00_loopback.c' which is the Loopback example in 'WIZnet-PICO-LWIP-C/examples/loopback/' directory.
 
 Setup IP and other network settings to suit your network environment.
 
@@ -62,14 +62,14 @@ IP4_ADDR(&g_gateway, 192, 168, 11, 1);
 
 3. Allows users to choose between echoserver mode and echoclient mode.
 
-- Setup loopback configuration in 'tcp_echoserver.c' in 'RP2040-HAT-LWIP-C/examples/loopback/tcp_echoserver/' directory.
+- Setup loopback configuration in 'tcp_echoserver.c' in 'WIZnet-PICO-LWIP-C/examples/loopback/tcp_echoserver/' directory.
 
 ```cpp
 /* Source Port */
 #define PORT_LOOPBACK 5001
 ```
 
-- Setup loopback configuration in 'tcp_echoclient.c' in 'RP2040-HAT-LWIP-C/examples/loopback/tcp_echoclient/' directory.
+- Setup loopback configuration in 'tcp_echoclient.c' in 'WIZnet-PICO-LWIP-C/examples/loopback/tcp_echoclient/' directory.
 
 ```c
 /* Source Port */
@@ -86,9 +86,9 @@ static u16_t dest_port = 5000;
 
 1. After completing the Loopback example configuration, click 'build' in the status bar at the bottom of Visual Studio Code or press the 'F7' button on the keyboard to build.
 
-2. When the build is completed, 'w5x00_loopback.uf2' is generated in 'RP2040-HAT-LWIP-C/build/examples/loopback/' directory.
+2. When the build is completed, 'w5x00_loopback.uf2' is generated in 'WIZnet-PICO-LWIP-C/build/examples/loopback/' directory.
 
-3. While pressing the BOOTSEL button of Raspberry Pi Pico, W5100S-EVB-Pico or W5500-EVB-Pico power on the board, the USB mass storage 'RPI-RP2' is automatically mounted.
+3. While pressing the BOOTSEL button of Raspberry Pi Pico, W5100S-EVB-Pico, W5500-EVB-Pico or W55RP20-EVB-Pico power on the board, the USB mass storage 'RPI-RP2' is automatically mounted.
 
 ![][link-raspberry_pi_pico_usb_mass_storage]
 
@@ -106,7 +106,7 @@ static u16_t dest_port = 5000;
 
 2. Reset your board.
 
-3. If the Loopback example works normally on Raspberry Pi Pico, W5100S-EVB-Pico or W5500-EVB-Pico, you can see the IP of Raspberry Pi Pico, W5100S-EVB-Pico or W5500-EVB-Pico and the loopback server is open.
+3. If the Loopback example works normally on Raspberry Pi Pico, W5100S-EVB-Pico, W5500-EVB-Pico or W55RP20-EVB-Pico you can see the IP of Raspberry Pi Pico, W5100S-EVB-Pico, W5500-EVB-Pico or W55RP20-EVB-Pico and the loopback server is open.
 
 ![][link-see_network_information_of_raspberry_pi_pico_and_open_loopback_server]
 
@@ -120,16 +120,16 @@ static u16_t dest_port = 5000;
 
 **TCP Client mode**
 
-1. Connect to the serial COM port of Raspberry Pi Pico, W5100S-EVB-Pico or W5500-EVB-Pico with Tera Term.
+1. Connect to the serial COM port of Raspberry Pi Pico, W5100S-EVB-Pico, W5500-EVB-Pico or W55RP20-EVB-Pico with Tera Term.
 
 ![][link-connect_to_serial_com_port]
 
 2. Reset your board.
-3. Open Hercules and set the port for the W5100S-EVB-Pico or W5500-EVB-Pico to connect to 5000.
+3. Open Hercules and set the port for the W5100S-EVB-Pico, W5500-EVB-Pico or W55RP20-EVB-Pico to connect to 5000.
 
 ![][link-hercules_server_open]
 
-4. If the W5100S-EVB-Pico or W5500-EVB-Pico works properly, you should see it connect to the server.
+4. If the W5100S-EVB-Pico, W5500-EVB-Pico or W55RP20-EVB-Pico works properly, you should see it connect to the server.
 
 ![][link-lwip_client_connect]
 
