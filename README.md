@@ -114,7 +114,7 @@ When using W55RP20-EVB-Pico :
 ```cpp
 # Set board
 set(BOARD_NAME W55RP20_EVB_PICO)
-
+```
 
 3. Test
 
@@ -387,6 +387,8 @@ Link
 [link-w5100s-evb-pico_main]: https://github.com/Wiznet/RP2040-HAT-LWIP-C/blob/main/static/images/getting_started/w5100s-evb-pico_main.png
 [link-w5500-evb-pico]: https://docs.wiznet.io/Product/iEthernet/W5500/w5500-evb-pico
 [link-w5500-evb-pico_main]: https://github.com/Wiznet/RP2040-HAT-LWIP-C/blob/main/static/images/getting_started/w5500-evb-pico_main.png
+[link-w5500-evb-pico]: https://docs.wiznet.io/Product/iEthernet/W5500/w5500-evb-pico
+[link-w55rp20-evb-pico]: https://docs.wiznet.io/Product/ioNIC/W55RP20/w55rp20-evb-pico
 [link-dhcp_dns]: https://github.com/Wiznet/RP2040-HAT-LWIP-C/tree/main/examples/dhcp_dns
 [link-loopback]: https://github.com/Wiznet/RP2040-HAT-LWIP-C/tree/main/examples/loopback
 [link-iperf]: https://github.com/Wiznet/RP2040-HAT-LWIP-C/tree/main/examples/lwiperf
