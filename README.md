@@ -28,7 +28,7 @@ The LwIP examples were tested by configuring the development environment for **W
 
 The LwIP examples use **Raspberry Pi Pico** and **WIZnet Ethernet HAT** - ethernet I/O module built on WIZnet's [**W5100S**][link-w5100s] ethernet chip, **W5100S-EVB-Pico** - ethernet I/O module built on [**RP2040**][link-rp2040] and WIZnet's [**W5100S**][link-w5100s] ethernet chip or **W5500-EVB-Pico** and **W55RP20-EVB-Pico** - ethernet I/O module built on [**RP2040**][link-rp2040] and WIZnet's [**W5500**][link-w5500] ethernet chip.
 
-- [**Raspberry Pi Pico**][link-raspberry_pi_pico] & - [**WIZnet Ethernet HAT**][link-wiznet_ethernet_hat]
+- [**Raspberry Pi Pico**][link-raspberry_pi_pico] or [**Raspberry Pi Pico2**][link-raspberry_pi_pico2]& [**WIZnet Ethernet HAT**][link-wiznet_ethernet_hat]
 - [**W5100S-EVB-Pico**][link-w5100s-evb-pico]
 - [**W5500-EVB-Pico**][link-w5500-evb-pico]
 - [**W55RP20-EVB-Pico**][link-w55rp20-evb-pico]
@@ -396,6 +396,7 @@ Link
 [link-w5100s]: https://docs.wiznet.io/Product/iEthernet/W5100S/overview
 [link-w5500]: https://docs.wiznet.io/Product/iEthernet/W5500/overview
 [link-raspberry_pi_pico]: https://www.raspberrypi.org/products/raspberry-pi-pico/
+[link-raspberry_pi_pico2]: https://www.raspberrypi.com/products/raspberry-pi-pico-2/
 [link-raspberry_pi_pico_main]: https://github.com/Wiznet/RP2040-HAT-LWIP-C/blob/main/static/images/getting_started/raspberry_pi_pico_main.png
 [link-wiznet_ethernet_hat]: https://docs.wiznet.io/Product/Open-Source-Hardware/wiznet_ethernet_hat
 [link-wiznet_ethernet_hat_main]: https://github.com/Wiznet/RP2040-HAT-LWIP-C/blob/main/static/images/getting_started/wiznet_ethernet_hat_main.png
