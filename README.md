@@ -96,6 +96,8 @@ Setup the board in '**CMakeLists.txt**' in '**WIZnet-PICO-LWIP-C/**' directory a
 - W5100S-EVB-Pico
 - W5500-EVB-Pico
 - W55RP20-EVB-Pico
+- W5100S-EVB-Pico2
+- W5500-EVB-Pico2
 
 For example, when using WIZnet Ethernet HAT or W5100S-EVB-Pico :
 
@@ -116,6 +118,18 @@ When using W55RP20-EVB-Pico :
 ```cpp
 # Set board
 set(BOARD_NAME W55RP20_EVB_PICO)
+```
+
+When using W5100S_EVB_PICO2 :
+```cpp
+# Set board
+set(BOARD_NAME W5100S_EVB_PICO2)
+```
+
+When using W5500_EVB_PICO2 :
+```cpp
+# Set board
+set(BOARD_NAME W5500_EVB_PICO2)
 ```
 
 3. Test
