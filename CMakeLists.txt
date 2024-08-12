@@ -1,6 +1,47 @@
 # CMake minimum required version
 cmake_minimum_required(VERSION 3.12)
 
+# Set board
+#set(BOARD_NAME WIZnet_Ethernet_HAT)
+#set(BOARD_NAME W5100S_EVB_PICO)
+#set(BOARD_NAME W5500_EVB_PICO)
+#set(BOARD_NAME W55RP20_EVB_PICO)
+set(BOARD_NAME W5100S_EVB_PICO2)
+#set(BOARD_NAME W5500_EVB_PICO2)
+ 
+if(${BOARD_NAME} STREQUAL WIZnet_Ethernet_HAT)
+    #set(PICO_PLATFORM rp2350) #If you are using WIZnet_ethernet_HAT with Pico2, uncomment it.
+    set(WIZNET_CHIP W5100S)
+    add_definitions(-D_WIZCHIP_=W5100S)
+    add_definitions(-DDEVICE_BOARD_NAME=WIZnet_Ethernet_HAT)
+elseif(${BOARD_NAME} STREQUAL W5100S_EVB_PICO)
+    set(WIZNET_CHIP W5100S)
+    add_definitions(-D_WIZCHIP_=W5100S)
+    add_definitions(-DDEVICE_BOARD_NAME=W5100S_EVB_PICO)
+elseif(${BOARD_NAME} STREQUAL W5500_EVB_PICO)
+    set(WIZNET_CHIP W5500)
+    add_definitions(-D_WIZCHIP_=W5500)
+    add_definitions(-DDEVICE_BOARD_NAME=W5500_EVB_PICO)
+ 
+elseif(${BOARD_NAME} STREQUAL W55RP20_EVB_PICO)
+    set(WIZNET_CHIP W5500)
+    add_definitions(-D_WIZCHIP_=W5500)
+    add_definitions(-DDEVICE_BOARD_NAME=W55RP20_EVB_PICO)
+ 
+elseif(${BOARD_NAME} STREQUAL W5100S_EVB_PICO2)
+    set(PICO_PLATFORM rp2350)
+    set(WIZNET_CHIP W5100S)
+    add_definitions(-D_WIZCHIP_=W5100S)
+    add_definitions(-DDEVICE_BOARD_NAME=W5100S_EVB_PICO2)
+elseif(${BOARD_NAME} STREQUAL W5500_EVB_PICO2)
+    set(PICO_PLATFORM rp2350)
+    set(WIZNET_CHIP W5500)
+    add_definitions(-D_WIZCHIP_=W5500)
+    add_definitions(-DDEVICE_BOARD_NAME=W5500_EVB_PICO2)
+else() 
+    message(FATAL_ERROR "BOARD_NAME is wrong = ${BOARD_NAME}")
+endif()
+
 # Pull in SDK (must be before project)
 if(NOT DEFINED PICO_SDK_PATH)
     set(PICO_SDK_PATH ${CMAKE_SOURCE_DIR}/libraries/pico-sdk)
@@ -21,32 +62,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 # Initialize the SDK
 pico_sdk_init()
-
-# Set board
-#set(BOARD_NAME WIZnet_Ethernet_HAT)
-#set(BOARD_NAME W5100S_EVB_PICO)
-#set(BOARD_NAME W5500_EVB_PICO)
-set(BOARD_NAME W55RP20_EVB_PICO)
-
-if(${BOARD_NAME} STREQUAL WIZnet_Ethernet_HAT)
-    set(WIZNET_CHIP W5100S)
-    add_definitions(-D_WIZCHIP_=W5100S)
-    add_definitions(-DDEVICE_BOARD_NAME=WIZnet_Ethernet_HAT)
-elseif(${BOARD_NAME} STREQUAL W5100S_EVB_PICO)
-    set(WIZNET_CHIP W5100S)
-    add_definitions(-D_WIZCHIP_=W5100S)
-    add_definitions(-DDEVICE_BOARD_NAME=W5100S_EVB_PICO)
-elseif(${BOARD_NAME} STREQUAL W5500_EVB_PICO)
-    set(WIZNET_CHIP W5500)
-    add_definitions(-D_WIZCHIP_=W5500)
-    add_definitions(-DDEVICE_BOARD_NAME=W5500_EVB_PICO)
-elseif(${BOARD_NAME} STREQUAL W55RP20_EVB_PICO)
-    set(WIZNET_CHIP W5500)
-    add_definitions(-D_WIZCHIP_=W5500)
-    add_definitions(-DDEVICE_BOARD_NAME=W55RP20_EVB_PICO)
-else() 
-    message(FATAL_ERROR "BOARD_NAME is wrong = ${BOARD_NAME}")
-endif()
 
 # Set the project root directory if it's not already defined, as may happen if
 # the tests folder is included directly by a parent project, without including
