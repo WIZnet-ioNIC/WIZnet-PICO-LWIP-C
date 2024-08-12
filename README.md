@@ -28,10 +28,12 @@ The LwIP examples were tested by configuring the development environment for **W
 
 The LwIP examples use **Raspberry Pi Pico** and **WIZnet Ethernet HAT** - ethernet I/O module built on WIZnet's [**W5100S**][link-w5100s] ethernet chip, **W5100S-EVB-Pico** - ethernet I/O module built on [**RP2040**][link-rp2040] and WIZnet's [**W5100S**][link-w5100s] ethernet chip or **W5500-EVB-Pico** and **W55RP20-EVB-Pico** - ethernet I/O module built on [**RP2040**][link-rp2040] and WIZnet's [**W5500**][link-w5500] ethernet chip.
 
-- [**Raspberry Pi Pico**][link-raspberry_pi_pico] & - [**WIZnet Ethernet HAT**][link-wiznet_ethernet_hat]
+- [**Raspberry Pi Pico**][link-raspberry_pi_pico] or [**Raspberry Pi Pico2**][link-raspberry_pi_pico2]& [**WIZnet Ethernet HAT**][link-wiznet_ethernet_hat]
 - [**W5100S-EVB-Pico**][link-w5100s-evb-pico]
 - [**W5500-EVB-Pico**][link-w5500-evb-pico]
 - [**W55RP20-EVB-Pico**][link-w55rp20-evb-pico]
+- [**W5100S-EVB-Pico2**][link-w5100s-evb-pico2]
+- [**W5500-EVB-Pico2**][link-w5500-evb-pico2]
 
 
 <a name="lwip_example_structure"></a>
@@ -94,6 +96,8 @@ Setup the board in '**CMakeLists.txt**' in '**WIZnet-PICO-LWIP-C/**' directory a
 - W5100S-EVB-Pico
 - W5500-EVB-Pico
 - W55RP20-EVB-Pico
+- W5100S-EVB-Pico2
+- W5500-EVB-Pico2
 
 For example, when using WIZnet Ethernet HAT or W5100S-EVB-Pico :
 
@@ -114,6 +118,18 @@ When using W55RP20-EVB-Pico :
 ```cpp
 # Set board
 set(BOARD_NAME W55RP20_EVB_PICO)
+```
+
+When using W5100S_EVB_PICO2 :
+```cpp
+# Set board
+set(BOARD_NAME W5100S_EVB_PICO2)
+```
+
+When using W5500_EVB_PICO2 :
+```cpp
+# Set board
+set(BOARD_NAME W5500_EVB_PICO2)
 ```
 
 3. Test
@@ -380,6 +396,7 @@ Link
 [link-w5100s]: https://docs.wiznet.io/Product/iEthernet/W5100S/overview
 [link-w5500]: https://docs.wiznet.io/Product/iEthernet/W5500/overview
 [link-raspberry_pi_pico]: https://www.raspberrypi.org/products/raspberry-pi-pico/
+[link-raspberry_pi_pico2]: https://www.raspberrypi.com/products/raspberry-pi-pico-2/
 [link-raspberry_pi_pico_main]: https://github.com/Wiznet/RP2040-HAT-LWIP-C/blob/main/static/images/getting_started/raspberry_pi_pico_main.png
 [link-wiznet_ethernet_hat]: https://docs.wiznet.io/Product/Open-Source-Hardware/wiznet_ethernet_hat
 [link-wiznet_ethernet_hat_main]: https://github.com/Wiznet/RP2040-HAT-LWIP-C/blob/main/static/images/getting_started/wiznet_ethernet_hat_main.png
@@ -387,6 +404,8 @@ Link
 [link-w5100s-evb-pico_main]: https://github.com/Wiznet/RP2040-HAT-LWIP-C/blob/main/static/images/getting_started/w5100s-evb-pico_main.png
 [link-w5500-evb-pico]: https://docs.wiznet.io/Product/iEthernet/W5500/w5500-evb-pico
 [link-w5500-evb-pico_main]: https://github.com/Wiznet/RP2040-HAT-LWIP-C/blob/main/static/images/getting_started/w5500-evb-pico_main.png
+[link-w5100s-evb-pico2]:https://docs.wiznet.io/Product/iEthernet/W5100S/w5100s-evb-pico2
+[link-w5500-evb-pico2]:https://docs.wiznet.io/Product/iEthernet/W5500/w5500-evb-pico2
 [link-w5500-evb-pico]: https://docs.wiznet.io/Product/iEthernet/W5500/w5500-evb-pico
 [link-w55rp20-evb-pico]: https://docs.wiznet.io/Product/ioNIC/W55RP20/w55rp20-evb-pico
 [link-dhcp_dns]: https://github.com/Wiznet/RP2040-HAT-LWIP-C/tree/main/examples/dhcp_dns

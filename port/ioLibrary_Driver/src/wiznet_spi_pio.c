@@ -17,8 +17,6 @@
 
 #include "wiznet_spi_pio.pio.h"
 
-
-
 #ifndef PIO_SPI_PREFERRED_PIO
 #define PIO_SPI_PREFERRED_PIO 1
 #endif
@@ -32,17 +30,6 @@
 #define SPI_OFFSET_WRITE_BITS __CONCAT(SPI_PROGRAM_NAME, _offset_write_bits)
 #define SPI_OFFSET_WRITE_END __CONCAT(SPI_PROGRAM_NAME, _offset_write_end)
 #define SPI_OFFSET_READ_END __CONCAT(SPI_PROGRAM_NAME, _offset_read_end)
-
-//#define ENABLE_SPI_DUMPING 1
-#define ENABLE_SPI_DUMPING 0
-
-#if ENABLE_SPI_DUMPING
-static uint32_t counter = 0;
-#define DUMP_SPI_TRANSACTIONS(A) A
-#else
-#define DUMP_SPI_TRANSACTIONS(A)
-#endif
-
 
 // All wiznet spi operations must start with writing a 3 byte header
 #define SPI_HEADER_LEN 3
@@ -222,22 +209,6 @@ static void wiznet_spi_pio_frame_end(void) {
 #endif
 }
 
-#if ENABLE_SPI_DUMPING
-static void dump_bytes(const uint8_t *bptr, uint32_t len) {
-    unsigned int i = 0;
-
-    for (i = 0; i < len;) {
-        if ((i & 0x0f) == 0) {
-            printf("\n");
-        } else if ((i & 0x07) == 0) {
-            printf(" ");
-        }
-        printf("%02x ", bptr[i++]);
-    }
-    printf("\n");
-}
-#endif
-
 // send tx then receive rx
 // rx can be null if you just want to send, but tx and tx_length must be valid
 static bool pio_spi_transfer(spi_pio_state_t *state, const uint8_t *tx, size_t tx_length, uint8_t *rx, size_t rx_length) {
@@ -248,10 +219,6 @@ static bool pio_spi_transfer(spi_pio_state_t *state, const uint8_t *tx, size_t t
 
     if (rx != NULL && tx != NULL) {    
         assert(tx && tx_length && rx_length);
-        DUMP_SPI_TRANSACTIONS(
-                printf("[%lu] bus TX/RX %u bytes rx %u:", counter++, tx_length, rx_length);
-                dump_bytes(tx, tx_length);
-        )
 
         pio_sm_set_enabled(state->pio, state->pio_sm, false); // disable sm
         pio_sm_set_wrap(state->pio, state->pio_sm, state->pio_offset + SPI_OFFSET_WRITE_BITS, state->pio_offset + SPI_OFFSET_READ_END - 1); 
@@ -288,10 +255,7 @@ static bool pio_spi_transfer(spi_pio_state_t *state, const uint8_t *tx, size_t t
         __compiler_memory_barrier();
     } else if (tx != NULL) {
         assert(tx_length);
-        DUMP_SPI_TRANSACTIONS(
-                printf("[%lu] bus TX only %u bytes:", counter++, tx_length);
-                dump_bytes(tx, tx_length);
-        )
+
         pio_sm_set_enabled(state->pio, state->pio_sm, false);
         pio_sm_set_wrap(state->pio, state->pio_sm, state->pio_offset + SPI_OFFSET_WRITE_BITS, state->pio_offset + SPI_OFFSET_WRITE_END - 1);
         pio_sm_clear_fifos(state->pio, state->pio_sm);
@@ -323,45 +287,8 @@ static bool pio_spi_transfer(spi_pio_state_t *state, const uint8_t *tx, size_t t
         pio_sm_set_consecutive_pindirs(state->pio, state->pio_sm, state->spi_config->data_in_pin, 1, false);
     } else if (rx != NULL) {
         panic_unsupported(); // shouldn't be used
-#if 0
-        assert(rx_length);
-        DUMP_SPI_TRANSACTIONS(
-                printf("[%lu] bus RX only %u bytes:\n", counter++, rx_length);
-        )
-        pio_sm_set_enabled(state->pio, state->pio_sm, false); // disable sm
-        pio_sm_set_wrap(state->pio, state->pio_sm, state->pio_offset + SPI_OFFSET_WRITE_BITS, state->pio_offset + SPI_OFFSET_READ_END - 1);  // stall on write at the end of the read
-        pio_sm_clear_fifos(state->pio, state->pio_sm); // clear fifos from previous run
-        pio_sm_restart(state->pio, state->pio_sm);
-        pio_sm_clkdiv_restart(state->pio, state->pio_sm);
-        pio_sm_put(state->pio, state->pio_sm, rx_length - 1);
-        pio_sm_exec(state->pio, state->pio_sm, pio_encode_out(pio_y, 32)); // y is bytes to be read
-        pio_sm_exec(state->pio, state->pio_sm, pio_encode_jmp(state->pio_offset + SPI_OFFSET_READ_BYTE)); // setup pc
-        dma_channel_abort(state->dma_in);
-
-        dma_channel_config in_config = dma_channel_get_default_config(state->dma_in);
-        channel_config_set_dreq(&in_config, pio_get_dreq(state->pio, state->pio_sm, false));
-        channel_config_set_write_increment(&in_config, true);
-        channel_config_set_read_increment(&in_config, false);
-        channel_config_set_transfer_data_size(&in_config, DMA_SIZE_8);
-        dma_channel_configure(state->dma_in, &in_config, rx, &state->pio->rxf[state->pio_sm], rx_length, true);
-
-        pio_sm_set_enabled(state->pio, state->pio_sm, true);
-        __compiler_memory_barrier();
-
-        dma_channel_wait_for_finish_blocking(state->dma_in);
-
-        __compiler_memory_barrier();
-#endif
     }
     pio_sm_exec(state->pio, state->pio_sm, pio_encode_mov(pio_pins, pio_null)); // for next time we turn output on
-
-    DUMP_SPI_TRANSACTIONS(
-        if (rx_length > 0) {
-            printf("RXed:");
-            dump_bytes(rx, rx_length);
-            printf("\n");
-        }
-    )
 
     return true;
 }

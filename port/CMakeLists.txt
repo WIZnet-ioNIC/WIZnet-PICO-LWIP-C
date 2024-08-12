@@ -43,6 +43,7 @@ target_include_directories(LWIP_FILES PUBLIC
 
 target_link_libraries(LWIP_FILES PUBLIC
         ETHERNET_FILES
+        pico_stdlib
         pico_lwip
         pico_lwip_nosys
         )
