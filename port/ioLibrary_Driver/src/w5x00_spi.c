@@ -56,6 +56,16 @@ wiznet_spi_handle_t spi_handle;
  * Functions
  * ----------------------------------------------------------------------------------------------------
  */
+static inline void wizchip_select(void)
+{
+    gpio_put(PIN_CS, 0);
+}
+
+static inline void wizchip_deselect(void)
+{
+    gpio_put(PIN_CS, 1);
+}
+
 void wizchip_reset()
 {
     gpio_init(PIN_RST);
