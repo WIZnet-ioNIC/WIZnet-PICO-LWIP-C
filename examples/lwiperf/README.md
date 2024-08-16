@@ -15,13 +15,13 @@ Note that iPerf uses iPerf 2.0.9.
 
 ## Step 2: Prepare hardware
 
-If you are using W5100S-EVB-Pico, W5500-EVB-Pico or W55RP20-EVB-Pico you can skip '1. Combine...'
+If you are using W5100S-EVB-Pico, W5500-EVB-Pico, W55RP20-EVB-Pico, W5100S-EVB-Pico2 or W5500-EVB-Pico2, you can skip '1. Combine...'
 
 1. Combine WIZnet Ethernet HAT with Raspberry Pi Pico.
 
-2. Connect ethernet cable to WIZnet Ethernet HAT, W5100S-EVB-Pico, W5500-EVB-Pico or W55RP20-EVB-Pico ethernet port.
+2. Connect ethernet cable to WIZnet Ethernet HAT, W5100S-EVB-Pico, W5500-EVB-Pico, W55RP20-EVB-Pico, W5100S-EVB-Pico2 or W5500-EVB-Pico2 ethernet port.
 
-3. Connect Raspberry Pi Pico, W5100S-EVB-Pico, W5500-EVB-Pico or W55RP20-EVB-Pico to desktop or laptop using 5 pin micro USB cable.
+3. Connect Raspberry Pi Pico, W5100S-EVB-Pico or W5500-EVB-Pico to desktop or laptop using 5 pin micro USB cable. W55RP20-EVB-Pico, W5100S-EVB-Pico2 or W5500-EVB-Pico2 require a USB Type-C cable.
 
 
 
@@ -32,6 +32,7 @@ To test the iPerf example, minor settings shall be done in code.
 1. Setup SPI port and pin in 'w5x00_spi.h' in 'WIZnet-PICO-LWIP-C/port/ioLibrary_Driver/' directory.
 
 Setup the SPI interface you use.
+- If you use the W5100S-EVB-Pico, W5500-EVB-Pico, W5100S-EVB-Pico2 or W5500-EVB-Pico2,
 
 ```cpp
 /* SPI */
@@ -49,6 +50,17 @@ If you want to test with the iPerf example using SPI DMA, uncomment USE_SPI_DMA.
 ```cpp
 /* Use SPI DMA */
 //#define USE_SPI_DMA // if you want to use SPI DMA, uncomment.
+```
+- If you use the W55RP20-EVB-Pico,
+```cpp
+/* SPI */
+#define USE_SPI_PIO
+
+#define PIN_SCK 21
+#define PIN_MOSI 23
+#define PIN_MISO 22
+#define PIN_CS 20
+#define PIN_RST 25
 ```
 
 2. Setup network configuration such as IP in 'w5x00_lwiperf.c' which is the iPerf example in 'WIZnet-PICO-LWIP-C/examples/lwiperf/' directory.
@@ -81,19 +93,19 @@ IP4_ADDR(&g_gateway, 192, 168, 11, 1);
 
 ## Step 5: Upload and Run
 
-1. While pressing the BOOTSEL button of Raspberry Pi Pico, W5100S-EVB-Pico or W5500-EVB-Pico power on the board, the USB mass storage 'RPI-RP2' is automatically mounted.
+1. While pressing the BOOTSEL button of Raspberry Pi Pico, W5100S-EVB-Pico, W5500-EVB-Pico, W55RP20-EVB-Pico, W5100S-EVB-Pico2 or W5500-EVB-Pico2 power on the board, the USB mass storage 'RPI-RP2' is automatically mounted.
 
 ![][link-raspberry_pi_pico_usb_mass_storage]
 
 2. Drag and drop 'w5x00_lwiperf.uf2' onto the USB mass storage device 'RPI-RP2'.
 
-3. Connect to the serial COM port of Raspberry Pi Pico, W5100S-EVB-Pico, W5500-EVB-Pico or W55RP20-EVB-Pico with Tera Term.
+3. Connect to the serial COM port of Raspberry Pi Pico, W5100S-EVB-Pico, W5500-EVB-Pico, W55RP20-EVB-Pico, W5100S-EVB-Pico2 or W5500-EVB-Pico2 with Tera Term.
 
 ![][link-connect_to_serial_com_port]
 
 4. Reset your board.
 
-5. If the iPerf example works normally on Raspberry Pi Pico, W5100S-EVB-Pico, W5500-EVB-Pico or W55RP20-EVB-Pico you can see the IP of Raspberry Pi Pico, W5100S-EVB-Pico, W5500-EVB-Pico or W55RP20-EVB-Pico and the TCP server is open.
+5. If the iPerf example works normally on Raspberry Pi Pico, W5100S-EVB-Pico, W5500-EVB-Pico, W55RP20-EVB-Pico, W5100S-EVB-Pico2 or W5500-EVB-Pico2 you can see the IP of Raspberry Pi Pico, W5100S-EVB-Pico, W5500-EVB-Pico, W55RP20-EVB-Pico, W5100S-EVB-Pico2 or W5500-EVB-Pico2 and the TCP server is open.
 
 ![][link-see_network_information_of_raspberry_pi_pico_and_open_tcp_server]
 
@@ -112,7 +124,7 @@ cd D:/iperf-2.0.9-win64
 
 ![][link-move_to_iperf_path]
 
-7. In the command prompt, enter the following command to connect to Raspberry Pi Pico, W5100S-EVB-Pico, W5500-EVB-Pico or W55RP20-EVB-Pico running as a TCP server and test.
+7. In the command prompt, enter the following command to connect to Raspberry Pi Pico, W5100S-EVB-Pico, W5500-EVB-Pico, W55RP20-EVB-Pico, W5100S-EVB-Pico2 or W5500-EVB-Pico2 running as a TCP server and test.
 
 ```cpp
 /* Network performance measurement test */
