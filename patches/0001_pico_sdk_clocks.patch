@@ -1,0 +1,36 @@
+diff --git a/libraries/pico-sdk/src/rp2_common/hardware_xosc/xosc.c b/libraries/pico-sdk/src/rp2_common/hardware_xosc/xosc.c
+index d32442e..9ba82e2 100644
+--- a/libraries/pico-sdk/src/rp2_common/hardware_xosc/xosc.c
++++ b/libraries/pico-sdk/src/rp2_common/hardware_xosc/xosc.c
+@@ -19,6 +19,7 @@
+ #error XOSC_HZ must be in the range 1,000,000-50,000,000 i.e. 1-50MHz XOSC frequency
+ #endif
+ 
++#define PICO_XOSC_STARTUP_DELAY_MULTIPLIER 64
+ #define STARTUP_DELAY ((((XOSC_HZ / KHZ) + 128) / 256) * PICO_XOSC_STARTUP_DELAY_MULTIPLIER)
+ 
+ // The DELAY field in xosc_hw->startup is 14 bits wide.
+diff --git a/libraries/pico-sdk/src/rp2_common/pico_runtime_init/runtime_init_clocks.c b/libraries/pico-sdk/src/rp2_common/pico_runtime_init/runtime_init_clocks.c
+index 435a801..92513a8 100644
+--- a/libraries/pico-sdk/src/rp2_common/pico_runtime_init/runtime_init_clocks.c
++++ b/libraries/pico-sdk/src/rp2_common/pico_runtime_init/runtime_init_clocks.c
+@@ -51,6 +51,10 @@ void __weak runtime_init_clocks(void) {
+         // Disable resus that may be enabled from previous software
+         clocks_hw->resus.ctrl = 0;
+ 
++        if (!watchdog_caused_reboot()) {
++            watchdog_reboot(0, 0, 1);
++        }
++        watchdog_enable(500,1);
+         // Enable the xosc
+         xosc_init();
+ 
+@@ -138,6 +142,8 @@ void __weak runtime_init_clocks(void) {
+                         CLOCKS_CLK_HSTX_CTRL_AUXSRC_VALUE_CLK_SYS,
+                         SYS_CLK_HZ);
+ #endif
++        watchdog_update();
++        watchdog_disable();
+     }
+ 
+     // Finally, all clocks are configured so start the ticks
