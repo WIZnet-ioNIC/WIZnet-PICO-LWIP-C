@@ -43,6 +43,7 @@ wiznet_spi_config_t g_spi_config = {
     .data_out_pin = PIN_MOSI,
     .cs_pin = PIN_CS,
     .clock_pin = PIN_SCK,
+    .irq_pin = PIN_IRQ,
     .reset_pin = PIN_RST,
     .clock_div_major = 2,
     .clock_div_minor = 0,
