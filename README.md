@@ -136,7 +136,12 @@ set(BOARD_NAME W5500_EVB_PICO2)
 
 Please refer to 'README.md' in each example directory to find detail guide for testing LwIP examples.
 
-
+> ※ If the board pauses when rebooting using W55RP20-EVB-Pico, patch it as follows.
+>
+> ```cpp
+> // Patch
+> git apply ./patches/0001_pico_sdk_clocks.patch
+> ```
 
 <a name="how_to_use_port_directory"></a>
 ## How to use port directory
